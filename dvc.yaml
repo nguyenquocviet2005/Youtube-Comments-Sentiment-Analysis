@@ -20,3 +20,17 @@ stages:
       - data/interim/train_preprocessed.csv
       - data/interim/test_preprocessed.csv
     
+  model_building:
+    cmd: python src/model/model_building.py
+    deps:
+      - data/interim/train_preprocessed.csv
+      - src/model/model_building.py
+    outs:
+      - tfidf_vectorizer.pkl
+      - lgbm_model.pkl
+    params:
+      - model_building.max_features
+      - model_building.ngram_range
+      - model_building.learning_rate
+      - model_building.max_depth
+      - model_building.n_estimators
