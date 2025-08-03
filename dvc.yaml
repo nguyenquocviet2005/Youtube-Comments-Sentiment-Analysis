@@ -1,0 +1,11 @@
+stages:
+  data_ingestion:
+    cmd: python src/data/data_ingestion.py
+    deps:
+      - src/data/data_ingestion.py
+      - params.yaml
+    outs:
+      - data/raw/train.csv
+      - data/raw/test.csv
+    params:
+      - data_ingestion.test_size
