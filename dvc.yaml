@@ -34,3 +34,13 @@ stages:
       - model_building.learning_rate
       - model_building.max_depth
       - model_building.n_estimators
+
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+      - data/interim/test_preprocessed.csv
+      - src/model/model_evaluation.py
+      - lgbm_model.pkl
+      - tfidf_vectorizer.pkl
+    outs:
+      - experiment_info.json
