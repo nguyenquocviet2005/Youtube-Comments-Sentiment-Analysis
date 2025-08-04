@@ -106,12 +106,12 @@ def log_confusion_matrix(cm: np.ndarray, dataset_name) -> None:
     except Exception as e:
         logger.error(f'Unexpected Error occurred while logging confusion matrix: {e}')
 
-def save_model_info(run_id: str, model_path: str, file_path: str) -> None:
-    """Save the model run_id and path to a JSON file."""
+def save_model_info(run_id: str, model_uri: str, file_path: str) -> None:
+    """Save the model run_id, local path, and S3 path to a JSON file."""
     try:
         model_info = {
             'run_id': run_id,
-            'model_path': model_path
+            'model_uri': model_uri,
         }
         with open(file_path, 'w') as file:
             json.dump(model_info, file, indent=4)
@@ -149,8 +149,9 @@ def main():
                 input_example=input_example
             )
 
-            model_path = 'lgbm_model'
-            save_model_info(run.info.run_id, model_path, 'experiment_info.json')
+            # Get the S3 path of the logged model
+            model_uri = mlflow.get_artifact_uri('lgbm_model')
+            save_model_info(run.info.run_id, model_uri, 'experiment_info.json')
 
             mlflow.log_artifact(os.path.join(root_dir, 'tfidf_vectorizer.pkl'))
 
