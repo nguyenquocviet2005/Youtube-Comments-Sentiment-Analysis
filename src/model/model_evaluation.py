@@ -93,7 +93,7 @@ def log_confusion_matrix(cm: np.ndarray, dataset_name) -> None:
     """Log confusion matrix as an artifact"""
     try:
         plt.figure(figsize=(8, 6))
-        sns.heatmap(cm, fmt='d', cmap='Blues')
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
         plt.title(f'Confusion matrix for {dataset_name}')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
