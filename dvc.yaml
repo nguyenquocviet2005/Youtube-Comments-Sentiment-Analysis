@@ -44,3 +44,9 @@ stages:
       - tfidf_vectorizer.pkl
     outs:
       - experiment_info.json
+
+  model_register:
+    cmd: python src/model/model_register.py
+    deps:
+      - src/model/model_register.py
+      - experiment_info.json
